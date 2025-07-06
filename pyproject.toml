@@ -16,3 +16,13 @@ dev = [
     "langgraph-api>=0.2.78",
     "langgraph-cli>=0.3.3",
 ]
+
+[build-system]
+requires = ["setuptools>=73.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["scentmatch"]
+
+[tool.setuptools.package-dir]
+"scentmatch" = "src/scentmatch"
