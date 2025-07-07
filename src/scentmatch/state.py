@@ -5,6 +5,7 @@ from langgraph.graph import MessagesState
 class WorkflowState(MessagesState):
     about_user: Dict[str, str]
     sales_pitch: str
+    chosen_product: str
 
 
 class WorkflowStateInput(MessagesState):
@@ -13,3 +14,4 @@ class WorkflowStateInput(MessagesState):
 
 class WorkflowStateOutput(MessagesState):
     sales_pitch: str
+    chosen_product: str
