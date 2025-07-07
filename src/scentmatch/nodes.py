@@ -28,4 +28,4 @@ def sales_node(state: WorkflowState, config: Configuration):
     llm = init_chat_model(config["configurable"]["model"], temperature=1)
     sales_pitch = llm.invoke(sales_prompt)
 
-    return {"sales_pitch": sales_pitch.content}
+    return {"sales_pitch": sales_pitch.content, "chosen_product": chosen_product}
