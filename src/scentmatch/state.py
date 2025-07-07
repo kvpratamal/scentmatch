@@ -1,14 +1,14 @@
-from typing import List, Dict
+from typing import Dict
 from langgraph.graph import MessagesState
 
 
 class WorkflowState(MessagesState):
-    about_user: List[Dict[str, str]]
+    about_user: Dict[str, str]
     sales_pitch: str
 
 
 class WorkflowStateInput(MessagesState):
-    about_user: List[Dict[str, str]]
+    about_user: Dict[str, str]
 
 
 class WorkflowStateOutput(MessagesState):
