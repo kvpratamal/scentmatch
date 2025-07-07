@@ -6,9 +6,7 @@ import os
 
 
 def sales_node(state: WorkflowState, config: Configuration):
-    user_response = "\n".join(
-        f"{k}: {v}" for about_user in state["about_user"] for k, v in about_user.items()
-    )
+    user_response = "\n".join(f"{k}: {v}" for k, v in state["about_user"].items())
 
     # Get the available products from the config
     available_products = config["configurable"]["available_products"]
@@ -30,4 +28,4 @@ def sales_node(state: WorkflowState, config: Configuration):
     llm = init_chat_model(config["configurable"]["model"], temperature=1)
     sales_pitch = llm.invoke(sales_prompt)
 
-    return {"sales_pitch": sales_pitch}
+    return {"sales_pitch": sales_pitch.content}
