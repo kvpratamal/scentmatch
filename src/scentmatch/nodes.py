@@ -12,13 +12,13 @@ def sales_node(state: WorkflowState, config: Configuration):
     available_products = config["configurable"]["available_products"]
     chosen_product = random.choice(available_products)
     product_description = os.path.join(
-        "src/scentmatch/products", chosen_product + ".txt"
+        "products", chosen_product + ".txt"
     )
     with open(product_description, "r") as f:
         product_description = f.read()
 
     # Get the prompt from the file
-    prompt = os.path.join("src/scentmatch/prompts", "sales_prompt.txt")
+    prompt = os.path.join("products", "sales_prompt.txt")
     with open(prompt, "r") as f:
         prompt = f.read()
     sales_prompt = prompt.format(
