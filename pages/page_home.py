@@ -11,6 +11,11 @@ def load_css(file_name):
 
 load_css('pages/styles.css')
 
+# Logo at the top
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    st.image("products/logo.png", use_container_width=True)
+
 if "result" not in st.session_state:
     if "selected_questions" not in st.session_state:
         st.session_state.selected_questions = random.sample(list(qa_collection.keys()), 3)
@@ -19,7 +24,7 @@ if "result" not in st.session_state:
     answers = [qa_collection[question] for question in questions]
 
     # Enhanced title with decorative elements
-    st.markdown('<h1 class="main-title sparkle">🌟 Legendary Scent Match 🌟</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 class="main-title sparkle">🌟 Scent Match 🌟</h1>', unsafe_allow_html=True)
 
     st.markdown("""
     <div class="subtitle">
@@ -134,7 +139,7 @@ else:
     last_sentence = sentences[-1] if len(sentences) > 1 else ""
 
     # Header with beautiful styling
-    st.markdown(f'<div class="main-title sparkle">🌟 Your Perfect Scent: <br> {chosen_product} </div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="main-title sparkle">Your Perfect Scent: <br> {chosen_product} </div>', unsafe_allow_html=True)
     st.markdown(f'<div class="subtitle">💬 {first_sentence}</div>', unsafe_allow_html=True)
 
     # Create spacer
