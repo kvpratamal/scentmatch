@@ -2,7 +2,7 @@
     text-align: center;
     font-size: 3.5rem;
     font-weight: 800;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    background: linear-gradient(135deg, #bdbdbd 0%, #000000 50%, #bdbdbd 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -202,4 +202,8 @@
 .main .block-container {
     padding-top: 2rem;
     max-width: 800px;
+}
+
+.stButton{
+    text-align: center;
 }
