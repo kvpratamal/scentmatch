@@ -1,6 +1,6 @@
 import streamlit as st
 import random
-from pages.qa_data import questions as qa_collection
+from products.qa_data import questions as qa_collection
 from scentmatch.graph import graph
 from scentmatch.configuration import Configuration
 
@@ -151,7 +151,7 @@ else:
             st.markdown(f'<div class="feature-item">{emoji} {sentence.strip()}.</div>', unsafe_allow_html=True)
 
     with cols[1]:
-        st.image(f"imgs/{chosen_product}.jpg", use_container_width=True, caption=f"✨ {chosen_product} ✨")
+        st.image(f"products/{chosen_product}.jpg", use_container_width=True, caption=f"✨ {chosen_product} ✨")
 
     # Add final sentence as a closing highlight
     if last_sentence:
