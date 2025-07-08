@@ -11,9 +11,7 @@ def sales_node(state: WorkflowState, config: Configuration):
     # Get the available products from the config
     available_products = config["configurable"]["available_products"]
     chosen_product = random.choice(available_products)
-    product_description = os.path.join(
-        "products", chosen_product + ".txt"
-    )
+    product_description = os.path.join("products", chosen_product + ".txt")
     with open(product_description, "r") as f:
         product_description = f.read()
 
