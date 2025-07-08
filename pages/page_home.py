@@ -164,3 +164,9 @@ else:
     </div>
     """, unsafe_allow_html=True)
     
+    # Footer with decorative elements
+    st.markdown("""
+    <div style="text-align: center; margin-top: 3rem; padding: 2rem; color: #666;">
+        <p style="font-style: italic;">AI can make mistakes, please verify the information before making a purchase.</p>
+    </div>
+    """, unsafe_allow_html=True)
