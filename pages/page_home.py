@@ -66,17 +66,19 @@ else:
         ]
         st.session_state.product_in_chat = product
 
+    avatars = {"user": "😊", "assistant": "✨"} # You can use emojis, local paths, or URLs
+
     for message in st.session_state.messages:
-        with st.chat_message(message["role"]):
+        with st.chat_message(message["role"], avatar=avatars[message["role"]]):
             st.markdown(message["content"])
 
     if prompt := st.chat_input("Ask something about the product"):
         st.session_state.messages.append({"role": "user", "content": prompt})
-        with st.chat_message("user"):
+        with st.chat_message("user", avatar=avatars["user"]):
             st.markdown(prompt)
 
-        with st.chat_message("assistant"):
-            with st.spinner("Scenting out the perfect answer..."):
+        with st.chat_message("assistant", avatar=avatars["assistant"]):
+            with st.spinner("*Scenting out the perfect answer...*"):
                 message_placeholder = st.empty()
                 full_response = ""
                 input_data = {"question": prompt, "product": product}
