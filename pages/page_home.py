@@ -1,5 +1,6 @@
 import streamlit as st
 import os
+import uuid
 from scentmatch.graph import chat_graph
 from scentmatch.configuration import Configuration
 
@@ -11,6 +12,9 @@ def load_css(file_name):
 
 
 load_css("pages/styles.css")
+
+if "session_id" not in st.session_state:
+    st.session_state.session_id = uuid.uuid4().hex
 
 # Logo at the top
 col1, col2, col3 = st.columns([1, 2, 1])
@@ -80,7 +84,7 @@ else:
                 input_data,
                 config={
                     "configurable": {
-                        "thread_id": "1",
+                        "thread_id": st.session_state.session_id,
                         "model": config_.model,
                     }
                 },

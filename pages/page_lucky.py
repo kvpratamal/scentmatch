@@ -1,5 +1,6 @@
 import streamlit as st
 import random
+import uuid
 from products.qa_data import questions as qa_collection
 from scentmatch.graph import graph
 from scentmatch.configuration import Configuration
@@ -12,6 +13,9 @@ def load_css(file_name):
 
 
 load_css("pages/styles.css")
+
+if "session_id" not in st.session_state:
+    st.session_state.session_id = uuid.uuid4().hex
 
 # Logo at the top
 col1, col2, col3 = st.columns([1, 2, 1])
@@ -129,7 +133,7 @@ if "result" not in st.session_state:
                             input_data,
                             config={
                                 "configurable": {
-                                    "thread_id": "1",
+                                    "thread_id": st.session_state.session_id,
                                     "available_products": config_.available_products,
                                     "model": config_.model,
                                 }
