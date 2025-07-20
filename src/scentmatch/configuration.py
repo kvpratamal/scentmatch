@@ -5,7 +5,13 @@ from pydantic import BaseModel, Field
 import os
 
 available_prods = [
+<<<<<<< HEAD
     file[:-4] for file in os.listdir("products") if file.endswith(".txt")
+=======
+    file[:-4]
+    for file in os.listdir("products")
+    if file.endswith(".txt") and file != "sales_prompt.txt"
+>>>>>>> parent of 7cc533f (move prompt to separate folder)
 ]
 
 
