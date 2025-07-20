@@ -16,7 +16,7 @@ def sales_node(state: WorkflowState, config: Configuration):
         product_description = f.read()
 
     # Get the prompt from the file
-    prompt = os.path.join("products", "sales_prompt.txt")
+    prompt = os.path.join("products", "prompts", "sales_prompt.txt")
     with open(prompt, "r") as f:
         prompt = f.read()
     sales_prompt = prompt.format(
@@ -36,16 +36,15 @@ def chat_node(state: ChatWorkflowState, config: Configuration):
     with open(product_description, "r") as f:
         product_description = f.read()
 
-    prompt = f"""You are a helpful assistant for the ScentMatch application.
-    You are an expert in all the products available in the store.
-    The user has asked the following question about the product {product}:
-    {question}
+    prompt_path = os.path.join("products", "prompts", "chat_prompt.txt")
+    with open(prompt_path, "r") as f:
+        prompt_template = f.read()
 
-    Here is the product description:
-    {product_description}
-
-    Please provide a helpful and friendly response to the user's question based on the product description.
-    """
+    prompt = prompt_template.format(
+        product=product,
+        question=question,
+        product_description=product_description,
+    )
 
     llm = init_chat_model(config["configurable"]["model"], temperature=0.7)
     response = llm.invoke(prompt)
