@@ -5,9 +5,7 @@ from pydantic import BaseModel, Field
 import os
 
 available_prods = [
-    file[:-4]
-    for file in os.listdir("products")
-    if file.endswith(".txt") and file != "sales_prompt.txt"
+    file[:-4] for file in os.listdir("products") if file.endswith(".txt")
 ]
 
 
@@ -18,6 +16,12 @@ class Configuration(BaseModel):
         default="You are a helpful AI assistant.",
         description="The system prompt to use for the agent's interactions. "
         "This prompt sets the context and behavior for the agent.",
+    )
+
+    thread_id: str = Field(
+        default="",
+        description="The thread ID to use for the agent's interactions. "
+        "This ID is used to identify the thread in the chat history.",
     )
 
     model: Annotated[

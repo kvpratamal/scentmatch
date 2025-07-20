@@ -15,3 +15,18 @@ class WorkflowStateInput(MessagesState):
 class WorkflowStateOutput(MessagesState):
     sales_pitch: str
     chosen_product: str
+
+
+class ChatWorkflowState(MessagesState):
+    question: str
+    product: str
+    response: str
+
+
+class ChatWorkflowStateInput(MessagesState):
+    question: str
+    product: str
+
+
+class ChatWorkflowStateOutput(MessagesState):
+    response: str
