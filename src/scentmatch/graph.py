@@ -1,4 +1,5 @@
 from langgraph.graph import START, StateGraph, END
+from langgraph.checkpoint.memory import InMemorySaver
 from scentmatch.state import (
     WorkflowState,
     WorkflowStateInput,
@@ -38,4 +39,5 @@ chat_builder.add_node("chat_node", chat_node)
 chat_builder.add_edge(START, "chat_node")
 chat_builder.add_edge("chat_node", END)
 
-chat_graph = chat_builder.compile()
+checkpointer = InMemorySaver()
+chat_graph = chat_builder.compile(checkpointer=checkpointer)

@@ -3,6 +3,7 @@ import os
 import uuid
 from scentmatch.graph import chat_graph
 from scentmatch.configuration import Configuration
+from langchain.schema import HumanMessage, AIMessage
 
 
 # Load CSS from external file
@@ -59,21 +60,25 @@ else:
         or st.session_state.get("product_in_chat") != product
     ):
         st.session_state.messages = [
-            {
-                "role": "assistant",
-                "content": f"Hello! Ask me anything about {product}!",
-            }
+            AIMessage(content=f"Hello! Ask me anything about {product}!")
         ]
         st.session_state.product_in_chat = product
 
-    avatars = {"user": "😊", "assistant": "✨"} # You can use emojis, local paths, or URLs
+    avatars = {
+        "user": "😊",
+        "assistant": "✨",
+    }
 
     for message in st.session_state.messages:
-        with st.chat_message(message["role"], avatar=avatars[message["role"]]):
-            st.markdown(message["content"])
+        if isinstance(message, HumanMessage):
+            with st.chat_message("user", avatar=avatars["user"]):
+                st.markdown(message.content)
+        elif isinstance(message, AIMessage):
+            with st.chat_message("assistant", avatar=avatars["assistant"]):
+                st.markdown(message.content)
 
     if prompt := st.chat_input("Ask something about the product"):
-        st.session_state.messages.append({"role": "user", "content": prompt})
+        st.session_state.messages.append(HumanMessage(content=prompt))
         with st.chat_message("user", avatar=avatars["user"]):
             st.markdown(prompt)
 
@@ -82,20 +87,23 @@ else:
                 message_placeholder = st.empty()
                 full_response = ""
                 input_data = {"question": prompt, "product": product}
-                config_ = Configuration()
+                config_ = Configuration(
+                    model="google_genai:gemini-2.5-flash-lite-preview-06-17",
+                    thread_id=st.session_state.session_id,
+                )
+                config_dict = config_.model_dump()
+                stop = False
                 for chunk in chat_graph.stream(
                     input_data,
-                    config={
-                        "configurable": {
-                            "thread_id": st.session_state.session_id,
-                            "model": config_.model,
-                        }
-                    },
+                    config=config_dict,
                     stream_mode="messages",
                 ):
-                    full_response += chunk[0].content
-                    message_placeholder.markdown(full_response)
-                message_placeholder.markdown(full_response)
-        st.session_state.messages.append(
-            {"role": "assistant", "content": full_response}
-        )
+                    if not stop:
+                        full_response += chunk[0].content
+                        message_placeholder.markdown(full_response)
+                    if (
+                        "finish_reason" in chunk[0].response_metadata
+                        and chunk[0].response_metadata["finish_reason"] == "STOP"
+                    ):
+                        stop = True
+                st.session_state.messages.append(AIMessage(content=full_response))
