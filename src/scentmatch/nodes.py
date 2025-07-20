@@ -1,4 +1,4 @@
-from scentmatch.state import WorkflowState
+from scentmatch.state import WorkflowState, ChatWorkflowState
 from scentmatch.configuration import Configuration
 import random
 from langchain.chat_models import init_chat_model
@@ -27,3 +27,27 @@ def sales_node(state: WorkflowState, config: Configuration):
     sales_pitch = llm.invoke(sales_prompt)
 
     return {"sales_pitch": sales_pitch.content, "chosen_product": chosen_product}
+
+
+def chat_node(state: ChatWorkflowState, config: Configuration):
+    question = state["question"]
+    product = state["product"]
+    product_description = os.path.join("products", product + ".txt")
+    with open(product_description, "r") as f:
+        product_description = f.read()
+
+    prompt = f"""You are a helpful assistant for the ScentMatch application.
+    You are an expert in all the products available in the store.
+    The user has asked the following question about the product {product}:
+    {question}
+
+    Here is the product description:
+    {product_description}
+
+    Please provide a helpful and friendly response to the user's question based on the product description.
+    """
+
+    llm = init_chat_model(config["configurable"]["model"], temperature=0.7)
+    response = llm.invoke(prompt)
+
+    return {"response": response.content}
