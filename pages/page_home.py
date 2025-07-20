@@ -77,7 +77,7 @@ else:
             with st.chat_message("assistant", avatar=avatars["assistant"]):
                 st.markdown(message.content)
 
-    if prompt := st.chat_input("Ask something about the product"):
+    if prompt := st.chat_input(f"Ask something about {product}"):
         st.session_state.messages.append(HumanMessage(content=prompt))
         with st.chat_message("user", avatar=avatars["user"]):
             st.markdown(prompt)
