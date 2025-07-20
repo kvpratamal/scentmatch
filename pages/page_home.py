@@ -76,24 +76,24 @@ else:
             st.markdown(prompt)
 
         with st.chat_message("assistant"):
-            message_placeholder = st.empty()
-            full_response = ""
-            input_data = {"question": prompt, "product": product}
-            config_ = Configuration()
-            for stream_mode, chunk in chat_graph.stream(
-                input_data,
-                config={
-                    "configurable": {
-                        "thread_id": st.session_state.session_id,
-                        "model": config_.model,
-                    }
-                },
-                stream_mode=["values", "custom"],
-            ):
-                if stream_mode == "values":
-                    full_response += chunk.get("response", "")
-                    message_placeholder.markdown(full_response + "▌")
-            message_placeholder.markdown(full_response)
+            with st.spinner("Scenting out the perfect answer..."):
+                message_placeholder = st.empty()
+                full_response = ""
+                input_data = {"question": prompt, "product": product}
+                config_ = Configuration()
+                for chunk in chat_graph.stream(
+                    input_data,
+                    config={
+                        "configurable": {
+                            "thread_id": st.session_state.session_id,
+                            "model": config_.model,
+                        }
+                    },
+                    stream_mode="messages",
+                ):
+                    full_response += chunk[0].content
+                    message_placeholder.markdown(full_response)
+                message_placeholder.markdown(full_response)
         st.session_state.messages.append(
             {"role": "assistant", "content": full_response}
         )
