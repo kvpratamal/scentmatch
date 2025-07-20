@@ -35,7 +35,6 @@ def chat_node(state: ChatWorkflowState, config: Configuration):
     product = state["product"]
     messages = state["messages"]
 
-<<<<<<< HEAD
     # Prepare messages for the LLM
     if len(messages) == 0:
         product_description = os.path.join("products", product + ".txt")
@@ -45,18 +44,6 @@ def chat_node(state: ChatWorkflowState, config: Configuration):
         prompt_path = os.path.join("products", "prompts", "chat_prompt.txt")
         with open(prompt_path, "r") as f:
             system_prompt_template = f.read()
-=======
-    prompt = f"""You are a helpful assistant for the ScentMatch application.
-    You are an expert in all the products available in the store.
-    The user has asked the following question about the product {product}:
-    {question}
-
-    Here is the product description:
-    {product_description}
-
-    Please provide a helpful and friendly response to the user's question based on the product description.
-    """
->>>>>>> parent of 7cc533f (move prompt to separate folder)
 
         system_prompt = system_prompt_template.format(
             product=product,
