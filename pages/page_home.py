@@ -54,6 +54,9 @@ else:
         f'<h1 class="main-title sparkle">🌟 Chat with {product} 🌟</h1>',
         unsafe_allow_html=True,
     )
+    cols = st.columns(3)
+    with cols[1]:
+        st.image(f"products/{product}.jpg", use_container_width=True)
 
     if (
         "messages" not in st.session_state
