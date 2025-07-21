@@ -17,7 +17,7 @@ def sales_node(state: WorkflowState, config: Configuration):
         product_description = f.read()
 
     # Get the prompt from the file
-    prompt = os.path.join("products", "sales_prompt.txt")
+    prompt = os.path.join("products", "prompts", "sales_prompt.txt")
     with open(prompt, "r") as f:
         prompt = f.read()
     sales_prompt = prompt.format(
