@@ -45,8 +45,13 @@ def chat_node(state: ChatWorkflowState, config: Configuration):
         with open(prompt_path, "r") as f:
             system_prompt_template = f.read()
 
+        location_path = os.path.join("products", "prompts", "location.txt")
+        with open(location_path, "r") as f:
+            location = f.read()
+
         system_prompt = system_prompt_template.format(
             product=product,
+            location=location,
             question=question,
             product_description=product_description,
         )
