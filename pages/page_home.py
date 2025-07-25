@@ -106,6 +106,7 @@ else:
                 config_ = Configuration(
                     model="google_genai:gemini-2.5-flash-lite-preview-06-17",
                     thread_id=st.session_state.session_id,
+                    language=st.session_state.lang,
                 )
                 config_dict = config_.model_dump()
                 stop = False

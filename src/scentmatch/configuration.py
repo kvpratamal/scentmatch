@@ -8,6 +8,8 @@ available_prods = [
     file[:-4] for file in os.listdir("products") if file.endswith(".txt")
 ]
 
+available_langs = [file[:-5] for file in os.listdir("locales") if file.endswith(".json")]
+
 
 class Configuration(BaseModel):
     """The configuration for the agent."""
@@ -40,4 +42,13 @@ class Configuration(BaseModel):
     available_products: list[Literal[*available_prods]] = Field(
         default=available_prods,
         description="The list of product's names available for the agent to use.",
+    )
+
+    language: Annotated[
+        Literal[*available_langs],
+        {"__template_metadata__": {"kind": "language"}},
+    ] = Field(
+        default=available_langs[0],
+        description="The language to use for the agent's interactions. "
+        "This is used to select the language for the app and user interactions.",
     )

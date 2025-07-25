@@ -37,15 +37,15 @@ def chat_node(state: ChatWorkflowState, config: Configuration):
 
     # Prepare messages for the LLM
     if len(messages) == 0:
-        product_description = os.path.join("products", product + ".txt")
+        product_description = os.path.join("products", product + "_" + config["configurable"]["language"] +".txt")
         with open(product_description, "r") as f:
             product_description = f.read()
 
-        prompt_path = os.path.join("products", "prompts", "chat_prompt.txt")
+        prompt_path = os.path.join("products", "prompts", "chat_prompt_" + config["configurable"]["language"] +".txt")
         with open(prompt_path, "r") as f:
             system_prompt_template = f.read()
 
-        location_path = os.path.join("products", "prompts", "location.txt")
+        location_path = os.path.join("products", "prompts", "location_" + config["configurable"]["language"] +".txt")
         with open(location_path, "r") as f:
             location = f.read()
 
