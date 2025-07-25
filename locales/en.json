@@ -1,0 +1,35 @@
+
+{
+  "app": {
+    "title": "Scent Match",
+    "home": "Home",
+    "feeling_lucky": "Feeling Lucky"
+  },
+  "home": {
+    "select_product": "🌟 Select a Product 🌟",
+    "chat_with": "🌟 Chat with {product} 🌟",
+    "hello": "Hello! Ask me anything about {product}!",
+    "ask_something": "Ask something about {product}",
+    "spinner": "Scenting out the perfect answer..."
+  },
+  "lucky": {
+    "title": "🌟 Scent Match 🌟",
+    "subtitle": "Discover your perfect fragrance through our personalized scent journey ✨",
+    "badge_personalized": "🎯 Personalized",
+    "badge_premium": "🌸 Premium Scents",
+    "badge_ai_powered": "✨ AI-Powered",
+    "badge_instant_results": "💫 Instant Results",
+    "preferences_title": "🌺 Tell Us About Your Preferences 🌺",
+    "question_title": "Question {i}: {question}",
+    "progress": "Progress: {answered}/{total} questions answered ({percent:.0f}%)",
+    "find_scent_button": "🌟 Find Your Perfect Scent! 🌟",
+    "analyzing": "✨ Analyzing your preferences... ✨",
+    "creating_profile": "🔮 Creating your personalized scent profile...",
+    "error_all_questions": "💫 Please answer all questions to unlock your perfect scent match!",
+    "perfect_scent": "Your Perfect Scent: <br> {product}",
+    "why_you_love_it": "✨ Why You'll Love It",
+    "closing_highlight": "🌸 {sentence} 🌸",
+    "footer_ai_warning": "AI can make mistakes, please verify the information before making a purchase.",
+    "footer_perfect_scent": "✨ Your perfect scent is just a few clicks away ✨"
+  }
+}

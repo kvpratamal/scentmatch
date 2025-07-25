@@ -4,6 +4,7 @@ import uuid
 from scentmatch.graph import chat_graph
 from scentmatch.configuration import Configuration
 from langchain.schema import HumanMessage, AIMessage
+from scentmatch.translator import translate
 
 
 # Load CSS from external file
@@ -35,7 +36,7 @@ products = get_products()
 
 if "selected_product" not in st.session_state:
     st.markdown(
-        '<h1 class="main-title sparkle">🌟 Select a Product 🌟</h1>',
+        f'<h1 class="main-title sparkle">{translate("home.select_product")}</h1>',
         unsafe_allow_html=True,
     )
 
@@ -51,7 +52,7 @@ if "selected_product" not in st.session_state:
 else:
     product = st.session_state.selected_product
     st.markdown(
-        f'<h1 class="main-title sparkle">🌟 Chat with {product} 🌟</h1>',
+        f'<h1 class="main-title sparkle">{translate("home.chat_with", product=product)}</h1>',
         unsafe_allow_html=True,
     )
     cols = st.columns(3)
@@ -63,7 +64,7 @@ else:
         or st.session_state.get("product_in_chat") != product
     ):
         st.session_state.messages = [
-            AIMessage(content=f"Hello! Ask me anything about {product}!")
+            AIMessage(content=translate("home.hello", product=product))
         ]
         st.session_state.product_in_chat = product
 
@@ -80,13 +81,13 @@ else:
             with st.chat_message("assistant", avatar=avatars["assistant"]):
                 st.markdown(message.content)
 
-    if prompt := st.chat_input(f"Ask something about {product}"):
+    if prompt := st.chat_input(translate("home.ask_something", product=product)):
         st.session_state.messages.append(HumanMessage(content=prompt))
         with st.chat_message("user", avatar=avatars["user"]):
             st.markdown(prompt)
 
         with st.chat_message("assistant", avatar=avatars["assistant"]):
-            with st.spinner("*Scenting out the perfect answer...*"):
+            with st.spinner(translate("home.spinner")):
                 message_placeholder = st.empty()
                 full_response = ""
                 input_data = {"question": prompt, "product": product}
