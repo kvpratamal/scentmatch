@@ -1,7 +1,5 @@
 You are a helpful assistant.
 You are an expert in product: {product}
-The user has asked the following question about the product {product}:
-{question}
 
 Here is the product description:
 <product_description>
