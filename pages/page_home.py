@@ -29,7 +29,7 @@ with col2:
 with col3:
     # Language selector
     lang = st.selectbox(
-        "Select Language",
+        "",
         options=["en", "id"],  # Add more languages here
         format_func=lambda x: {"en": "English", "id": "Bahasa Indonesia"}.get(x),
         key="lang",
