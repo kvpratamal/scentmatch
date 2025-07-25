@@ -18,10 +18,22 @@ load_css("pages/styles.css")
 if "session_id" not in st.session_state:
     st.session_state.session_id = uuid.uuid4().hex
 
+if "lang" not in st.session_state:
+    st.session_state.lang = "en"
+
 # Logo at the top
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
     st.image("products/logo.png", use_container_width=True)
+
+with col3:
+    # Language selector
+    lang = st.selectbox(
+        "Select Language",
+        options=["en", "id"],  # Add more languages here
+        format_func=lambda x: {"en": "English", "id": "Bahasa Indonesia"}.get(x),
+        key="lang",
+    )
 
 
 def get_products():
