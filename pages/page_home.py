@@ -4,6 +4,7 @@ import uuid
 from scentmatch.graph import chat_graph
 from scentmatch.configuration import Configuration
 from langchain.schema import HumanMessage, AIMessage
+from scentmatch.translator import translate
 
 
 # Load CSS from external file
@@ -17,10 +18,22 @@ load_css("pages/styles.css")
 if "session_id" not in st.session_state:
     st.session_state.session_id = uuid.uuid4().hex
 
+if "lang" not in st.session_state:
+    st.session_state.lang = "en"
+
 # Logo at the top
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
     st.image("products/logo.png", use_container_width=True)
+
+with col3:
+    # Language selector
+    lang = st.selectbox(
+        "",
+        options=["en", "id"],  # Add more languages here
+        format_func=lambda x: {"en": "English", "id": "Bahasa Indonesia"}.get(x),
+        key="lang",
+    )
 
 
 def get_products():
@@ -35,7 +48,7 @@ products = get_products()
 
 if "selected_product" not in st.session_state:
     st.markdown(
-        '<h1 class="main-title sparkle">🌟 Select a Product 🌟</h1>',
+        f'<h1 class="main-title sparkle">{translate("home.select_product")}</h1>',
         unsafe_allow_html=True,
     )
 
@@ -51,7 +64,7 @@ if "selected_product" not in st.session_state:
 else:
     product = st.session_state.selected_product
     st.markdown(
-        f'<h1 class="main-title sparkle">🌟 Chat with {product} 🌟</h1>',
+        f'<h1 class="main-title sparkle">{translate("home.chat_with", product=product)}</h1>',
         unsafe_allow_html=True,
     )
     cols = st.columns(3)
@@ -63,7 +76,7 @@ else:
         or st.session_state.get("product_in_chat") != product
     ):
         st.session_state.messages = [
-            AIMessage(content=f"Hello! Ask me anything about {product}!")
+            AIMessage(content=translate("home.hello", product=product))
         ]
         st.session_state.product_in_chat = product
 
@@ -80,19 +93,20 @@ else:
             with st.chat_message("assistant", avatar=avatars["assistant"]):
                 st.markdown(message.content)
 
-    if prompt := st.chat_input(f"Ask something about {product}"):
+    if prompt := st.chat_input(translate("home.ask_something", product=product)):
         st.session_state.messages.append(HumanMessage(content=prompt))
         with st.chat_message("user", avatar=avatars["user"]):
             st.markdown(prompt)
 
         with st.chat_message("assistant", avatar=avatars["assistant"]):
-            with st.spinner("*Scenting out the perfect answer...*"):
+            with st.spinner(translate("home.spinner")):
                 message_placeholder = st.empty()
                 full_response = ""
                 input_data = {"question": prompt, "product": product}
                 config_ = Configuration(
                     model="google_genai:gemini-2.5-flash-lite-preview-06-17",
                     thread_id=st.session_state.session_id,
+                    language=st.session_state.lang,
                 )
                 config_dict = config_.model_dump()
                 stop = False
