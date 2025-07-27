@@ -21,19 +21,21 @@ if "session_id" not in st.session_state:
 if "lang" not in st.session_state:
     st.session_state.lang = "en"
 
+# Language selector
+lang_col1, lang_col2, lang_col3 = st.columns([1, 1, 1])
+if "selected_product" not in st.session_state:
+    with lang_col3:
+        lang = st.selectbox(
+            "",
+            options=["en", "id"],  # Add more languages here
+            format_func=lambda x: {"en": "English", "id": "Bahasa Indonesia"}.get(x),
+            key="lang",
+        )
+
 # Logo at the top
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
     st.image("products/logo.png", use_container_width=True)
-
-with col3:
-    # Language selector
-    lang = st.selectbox(
-        "",
-        options=["en", "id"],  # Add more languages here
-        format_func=lambda x: {"en": "English", "id": "Bahasa Indonesia"}.get(x),
-        key="lang",
-    )
 
 
 def get_products():
