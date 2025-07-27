@@ -137,6 +137,7 @@ if "result" not in st.session_state:
                                 "configurable": {
                                     "thread_id": st.session_state.session_id,
                                     "available_products": config_.available_products,
+                                    "language": config_.language,
                                     "model": config_.model,
                                 }
                             },
