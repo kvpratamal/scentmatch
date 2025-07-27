@@ -1,15 +1,15 @@
 {
   "app": {
     "title": "Scent Match",
-    "home": "Beranda",
-    "feeling_lucky": "Merasa Beruntung"
+    "home": "Home",
+    "feeling_lucky": "Feeling Lucky"
   },
   "home": {
     "select_product": "🌟 Pilih Produk 🌟",
-    "chat_with": "🌟 Ngobrol dengan {product} 🌟",
-    "hello": "Halo! Tanyakan apa saja tentang {product}!",
-    "ask_something": "Tanyakan sesuatu tentang {product}",
-    "spinner": "Mencari jawaban yang sempurna..."
+    "chat_with": "Yuk, tanya-tanya tentang {product}!",
+    "hello": "Halo! Saya siap membantu anda. Silakan tanya apa saja tentang {product}!",
+    "ask_something": "Ketik pertanyaan Anda tentang {product} di sini.",
+    "spinner": "Sedang merangkai jawaban..."
   },
   "lucky": {
     "title": "🌟 Scent Match 🌟",
