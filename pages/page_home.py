@@ -26,11 +26,12 @@ lang_col1, lang_col2, lang_col3 = st.columns([1, 1, 1])
 if "selected_product" not in st.session_state:
     with lang_col3:
         lang = st.selectbox(
-            "",
+            "Language",
             options=["en", "id"],  # Add more languages here
             format_func=lambda x: {"en": "English", "id": "Bahasa Indonesia"}.get(x),
-            key="lang",
+            label_visibility="hidden",
         )
+    st.session_state.lang = lang
 
 # Logo at the top
 col1, col2, col3 = st.columns([1, 2, 1])
