@@ -1,0 +1,34 @@
+{
+  "app": {
+    "title": "Scent Match",
+    "home": "Beranda",
+    "feeling_lucky": "Merasa Beruntung"
+  },
+  "home": {
+    "select_product": "🌟 Pilih Produk 🌟",
+    "chat_with": "🌟 Ngobrol dengan {product} 🌟",
+    "hello": "Halo! Tanyakan apa saja tentang {product}!",
+    "ask_something": "Tanyakan sesuatu tentang {product}",
+    "spinner": "Mencari jawaban yang sempurna..."
+  },
+  "lucky": {
+    "title": "🌟 Scent Match 🌟",
+    "subtitle": "Temukan wewangian sempurna Anda melalui perjalanan aroma pribadi kami ✨",
+    "badge_personalized": "🎯 Dipersonalisasi",
+    "badge_premium": "🌸 Aroma Premium",
+    "badge_ai_powered": "✨ Didukung AI",
+    "badge_instant_results": "💫 Hasil Instan",
+    "preferences_title": "🌺 Beri Tahu Kami Preferensi Anda 🌺",
+    "question_title": "Pertanyaan {i}: {question}",
+    "progress": "Kemajuan: {answered}/{total} pertanyaan terjawab ({percent:.0f}%)",
+    "find_scent_button": "🌟 Temukan Aroma Sempurna Anda! 🌟",
+    "analyzing": "✨ Menganalisis preferensi Anda... ✨",
+    "creating_profile": "🔮 Membuat profil aroma pribadi Anda...",
+    "error_all_questions": "💫 Harap jawab semua pertanyaan untuk membuka kecocokan aroma sempurna Anda!",
+    "perfect_scent": "Aroma Sempurna Anda: <br> {product}",
+    "why_you_love_it": "✨ Mengapa Anda Akan Menyukainya",
+    "closing_highlight": "🌸 {sentence} 🌸",
+    "footer_ai_warning": "AI dapat membuat kesalahan, harap verifikasi informasi sebelum melakukan pembelian.",
+    "footer_perfect_scent": "✨ Aroma sempurna Anda hanya dengan beberapa klik ✨"
+  }
+}

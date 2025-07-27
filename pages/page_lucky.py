@@ -4,6 +4,7 @@ import uuid
 from products.qa_data import questions as qa_collection
 from scentmatch.graph import graph
 from scentmatch.configuration import Configuration
+from scentmatch.translator import translate
 
 
 # Load CSS from external file
@@ -33,28 +34,29 @@ if "result" not in st.session_state:
 
     # Enhanced title with decorative elements
     st.markdown(
-        '<h1 class="main-title sparkle">🌟 Scent Match 🌟</h1>', unsafe_allow_html=True
+        f'<h1 class="main-title sparkle">{translate("lucky.title")}</h1>',
+        unsafe_allow_html=True,
     )
 
     st.markdown(
-        """
+        f'''
     <div class="subtitle">
-        Discover your perfect fragrance through our personalized scent journey ✨
+        {translate("lucky.subtitle")}
     </div>
-    """,
+    ''',
         unsafe_allow_html=True,
     )
 
     # Feature badges
     st.markdown(
-        """
+        f'''
     <div style="text-align: center; margin-bottom: 2rem;">
-        <span class="feature-badge">🎯 Personalized</span>
-        <span class="feature-badge">🌸 Premium Scents</span>
-        <span class="feature-badge">✨ AI-Powered</span>
-        <span class="feature-badge">💫 Instant Results</span>
+        <span class="feature-badge">{translate("lucky.badge_personalized")}</span>
+        <span class="feature-badge">{translate("lucky.badge_premium")}</span>
+        <span class="feature-badge">{translate("lucky.badge_ai_powered")}</span>
+        <span class="feature-badge">{translate("lucky.badge_instant_results")}</span>
     </div>
-    """,
+    ''',
         unsafe_allow_html=True,
     )
 
@@ -65,11 +67,11 @@ if "result" not in st.session_state:
     # st.markdown('<div class="question-container">', unsafe_allow_html=True)
 
     st.markdown(
-        """
+        f'''
     <h2 style="text-align: center; color: #2d3748; margin-bottom: 2rem; font-size: 2rem;">
-        🌺 Tell Us About Your Preferences 🌺
+        {translate("lucky.preferences_title")}
     </h2>
-    """,
+    ''',
         unsafe_allow_html=True,
     )
 
@@ -78,7 +80,7 @@ if "result" not in st.session_state:
     for i, (question, answer) in enumerate(zip(questions, answers), 1):
         # st.markdown(f'<div class="question-item">', unsafe_allow_html=True)
         st.markdown(
-            f'<div class="question-title">Question {i}: {question}</div>',
+            f'<div class="question-title">{translate("lucky.question_title", i=i, question=question)}</div>',
             unsafe_allow_html=True,
         )
         user_responses[question] = st.radio(
@@ -99,33 +101,33 @@ if "result" not in st.session_state:
     progress = len(user_answers) / len(questions) * 100
 
     st.markdown(
-        f"""
+        f'''
     <div class="progress-indicator">
-        Progress: {len(user_answers)}/{len(questions)} questions answered ({progress:.0f}%)
+        {translate("lucky.progress", answered=len(user_answers), total=len(questions), percent=progress)}
         <div style="background: rgba(102, 126, 234, 0.3); height: 8px; border-radius: 4px; margin-top: 0.5rem;">
             <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 100%; width: {progress}%; border-radius: 4px; transition: width 0.3s ease;"></div>
         </div>
     </div>
-    """,
+    ''',
         unsafe_allow_html=True,
     )
 
     # Enhanced button
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        if st.button("🌟 Find Your Perfect Scent! 🌟", key="find_scent_button"):
+        if st.button(translate("lucky.find_scent_button"), key="find_scent_button"):
             # check if user has answered all questions
             if len(user_answers) == len(questions):
                 st.markdown(
-                    """
+                    f'''
                 <div style="text-align: center; font-size: 1.5rem; color: #667eea; margin: 2rem 0;">
-                    ✨ Analyzing your preferences... ✨
+                    {translate("lucky.analyzing")}
                 </div>
-                """,
+                ''',
                     unsafe_allow_html=True,
                 )
 
-                with st.spinner("🔮 Creating your personalized scent profile..."):
+                with st.spinner(translate("lucky.creating_profile")):
                     with st.empty():
                         input_data = {"about_user": user_responses}
                         config_ = Configuration()
@@ -135,6 +137,7 @@ if "result" not in st.session_state:
                                 "configurable": {
                                     "thread_id": st.session_state.session_id,
                                     "available_products": config_.available_products,
+                                    "language": config_.language,
                                     "model": config_.model,
                                 }
                             },
@@ -149,16 +152,16 @@ if "result" not in st.session_state:
                 st.rerun()
             else:
                 st.error(
-                    "💫 Please answer all questions to unlock your perfect scent match!"
+                    translate("lucky.error_all_questions")
                 )
 
     # Footer with decorative elements
     st.markdown(
-        """
+        f'''
     <div style="text-align: center; margin-top: 3rem; padding: 2rem; color: #666;">
-        <p style="font-style: italic;">✨ Your perfect scent is just a few clicks away ✨</p>
+        <p style="font-style: italic;">{translate("lucky.footer_perfect_scent")}</p>
     </div>
-    """,
+    ''',
         unsafe_allow_html=True,
     )
 
@@ -175,7 +178,7 @@ else:
 
     # Header with beautiful styling
     st.markdown(
-        f'<div class="main-title sparkle">Your Perfect Scent: <br> {chosen_product} </div>',
+        f'<div class="main-title sparkle">{translate("lucky.perfect_scent", product=chosen_product)}</div>',
         unsafe_allow_html=True,
     )
     st.markdown(
@@ -187,7 +190,8 @@ else:
 
     # Layout: description on the left, image on the right
     st.markdown(
-        '<h3 class="section-title">✨ Why You\'ll Love It</h3>', unsafe_allow_html=True
+        f'<h3 class="section-title">{translate("lucky.why_you_love_it")}</h3>',
+        unsafe_allow_html=True,
     )
     cols = st.columns([1.2, 1])
 
@@ -209,7 +213,7 @@ else:
     # Add final sentence as a closing highlight
     if last_sentence:
         st.markdown(
-            f'<div class="closing-highlight sparkle">🌸 {last_sentence} 🌸</div>',
+            f'<div class="closing-highlight sparkle">{translate("lucky.closing_highlight", sentence=last_sentence)}</div>',
             unsafe_allow_html=True,
         )
 
