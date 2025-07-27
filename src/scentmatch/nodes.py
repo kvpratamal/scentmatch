@@ -11,7 +11,10 @@ def sales_node(state: WorkflowState, config: Configuration):
 
     # Get the available products from the config
     available_products = config["configurable"]["available_products"]
+    lang = config["configurable"]["language"]
+    available_products = [product for product in available_products if product.endswith("_" + lang)]
     chosen_product = random.choice(available_products)
+    
     product_description = os.path.join("products", chosen_product + ".txt")
     with open(product_description, "r") as f:
         product_description = f.read()
@@ -27,7 +30,7 @@ def sales_node(state: WorkflowState, config: Configuration):
     llm = init_chat_model(config["configurable"]["model"], temperature=1)
     sales_pitch = llm.invoke(sales_prompt)
 
-    return {"sales_pitch": sales_pitch.content, "chosen_product": chosen_product}
+    return {"sales_pitch": sales_pitch.content, "chosen_product": chosen_product.replace("_" + lang, "")}
 
 
 def chat_node(state: ChatWorkflowState, config: Configuration):
